@@ -1,0 +1,16 @@
+{
+  "name": "desktop-frontpage",
+  "version": "1.0.0",
+  "description": "Updates the desktop wallpaper to the latest scan of the NYT frontpage.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "dlvalentine",
+  "license": "MIT",
+  "dependencies": {
+    "pdf-poppler": "^0.2.1",
+    "wallpaper": "^6.1.1"
+  }
+}
