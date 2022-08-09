@@ -20,8 +20,9 @@ try { await fs.rmSync(imagePath); } catch {}
 await https.get(nytScanURL, (response) => {
    response.pipe(file);
 
-   file.on("finish", () => {
+   file.on('finish', () => {
        file.close();
+      
        // Convert to image
         let option = {
             format: 'jpeg',
@@ -29,7 +30,7 @@ await https.get(nytScanURL, (response) => {
             out_prefix: `NYT`,
             page: 1,
             scale: 4096
-        }
+        };
 
         pdfConverter.convert(pdfPath, option)
         .then(() => {
@@ -40,8 +41,8 @@ await https.get(nytScanURL, (response) => {
             // cleanup pdf
             try { fs.rmSync(pdfPath); } catch {}
         })
-        .catch(err => {
-            console.log('an error has occurred in the pdf converter ' + err)
+        .catch((err) => {
+            console.log(`An error has occurred in the pdf converter: ${err}`);
         });
    });
 });
