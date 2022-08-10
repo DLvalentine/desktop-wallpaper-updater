@@ -10,6 +10,7 @@
   "author": "dlvalentine",
   "license": "MIT",
   "dependencies": {
+    "moment": "^2.29.4",
     "pdf-poppler": "^0.2.1",
     "wallpaper": "^6.1.1"
   }
