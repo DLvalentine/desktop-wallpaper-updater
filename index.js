@@ -1,4 +1,4 @@
-// First impl is just going to pull the current NYT cover scan
+// First impl is just going to pull the current front-page cover scan of a newspaper I choose
 // In the future, could probably set an array or use some web service to randomly set the wallpaper.
 import {default as pdfConverter} from 'pdf-poppler'
 import { setWallpaper } from 'wallpaper';
@@ -8,9 +8,9 @@ import * as https from 'https';
 
 const today = moment().format('DD');
 const appdataPath = process.env.APPDATA;
-const nytScanURL = `https://cdn.freedomforum.org/dfp/pdf${today}/NY_NYT.pdf`;
-const pdfPath = `${appdataPath}\\NY_NYT.pdf`;
-const imagePath = `${appdataPath}/NYT-1.jpg`;
+const nytScanURL = `https://cdn.freedomforum.org/dfp/pdf${today}/CA_LAT.pdf`;
+const pdfPath = `${appdataPath}\\CA_LAT.pdf`;
+const imagePath = `${appdataPath}/LAT-1.jpg`;
 const file = fs.createWriteStream(pdfPath);
 
 // cleanup pdf and old image
@@ -21,16 +21,16 @@ try { await fs.rmSync(imagePath); } catch {}
 await https.get(nytScanURL, (response) => {
    response.pipe(file);
 
-   file.on("finish", () => {
+   file.on('finish', () => {
        file.close();
        // Convert to image
         let option = {
             format: 'jpeg',
             out_dir: `${appdataPath}`,
-            out_prefix: `NYT`,
+            out_prefix: `LAT`,
             page: 1,
             scale: 4096
-        }
+        };
 
         pdfConverter.convert(pdfPath, option)
         .then(() => {
@@ -41,8 +41,8 @@ await https.get(nytScanURL, (response) => {
             // cleanup pdf
             try { fs.rmSync(pdfPath); } catch {}
         })
-        .catch(err => {
-            console.log('an error has occurred in the pdf converter ' + err)
+        .catch((err) => {
+            console.log(`PDF Conversion Error: ${err}`)
         });
    });
 });
