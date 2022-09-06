@@ -6,7 +6,7 @@ import moment from 'moment';
 import * as fs from 'fs';
 import * as https from 'https';
 
-const today = moment().format('DD');
+const today = moment().format('D');
 const appdataPath = process.env.APPDATA;
 const nytScanURL = `https://cdn.freedomforum.org/dfp/pdf${today}/CA_LAT.pdf`;
 const pdfPath = `${appdataPath}\\CA_LAT.pdf`;
